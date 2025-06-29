@@ -103,6 +103,16 @@ class HexapawnGame:
         )
         pygame.display.flip()
         pygame.time.delay(3000)
+    
+    def invalid_move(self):
+        text = self.font.render(f"Invalid Move!", True, RED)
+        self.screen.fill(WHITE)
+        self.screen.blit(
+            text,
+            (WIDTH // 2 - text.get_width() // 2, HEIGHT // 2 - text.get_height() // 2),
+        )
+        pygame.display.flip()
+        pygame.time.delay(500)
 
     def run(self):
         running = True
@@ -129,6 +139,8 @@ class HexapawnGame:
                                 self.draw_winner(winner)
                                 running = False
                             self.player_turn = 3 - self.player_turn
+                        else:
+                            self.invalid_move()
                         self.selected = None
                     else:
                         
