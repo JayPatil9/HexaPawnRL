@@ -94,6 +94,16 @@ class HexapawnGame:
 
         return None
 
+    def draw_winner(self, winner):
+        text = self.font.render(f"Player {winner} Wins!", True, BLACK)
+        self.screen.fill(WHITE)
+        self.screen.blit(
+            text,
+            (WIDTH // 2 - text.get_width() // 2, HEIGHT // 2 - text.get_height() // 2),
+        )
+        pygame.display.flip()
+        pygame.time.delay(3000)
+
     def run(self):
         running = True
 
@@ -106,7 +116,6 @@ class HexapawnGame:
                     running = False
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    print(event,self.selected)
                     x, y = event.pos
                     col, row = x // SQUARE_SIZE, y // SQUARE_SIZE
 
@@ -117,6 +126,7 @@ class HexapawnGame:
                             self.move_pawn(self.selected, (row, col))
                             winner = self.check_winner()
                             if winner:
+                                self.draw_winner(winner)
                                 running = False
                             self.player_turn = 3 - self.player_turn
                         self.selected = None
