@@ -1,5 +1,6 @@
 import pygame
 import sys
+from utils import valid_moves
 
 pygame.init()
 
@@ -20,6 +21,7 @@ class HexapawnGame:
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption("Hexapawn")
         self.font = pygame.font.Font(None, 50)
+        self.valid_moves = valid_moves
         self.reset()
 
     def reset(self):
@@ -57,21 +59,6 @@ class HexapawnGame:
                         SQUARE_SIZE // 3,
                     )
 
-    def valid_moves(self, row, col, player):
-        moves = []
-        direction = -1 if player == 1 else 1
-        new_row = row + direction
-
-        if 0 <= new_row < ROWS and self.board[new_row][col] == 0:
-            moves.append((new_row, col))
-
-
-        for dc in [-1, 1]:
-            new_col = col + dc
-            if 0 <= new_row < ROWS and 0 <= new_col < COLS:
-                if self.board[new_row][new_col] != 0 and self.board[new_row][new_col] != player:
-                    moves.append((new_row, new_col))
-        return moves
 
     def move_pawn(self, start, end):
         sr, sc = start
@@ -87,10 +74,10 @@ class HexapawnGame:
                 return 2
 
         p1_moves = sum(
-            len(self.valid_moves(r, c, 1)) for r in range(ROWS) for c in range(COLS) if self.board[r][c] == 1
+            len(self.valid_moves(self.board,r, c, 1)) for r in range(ROWS) for c in range(COLS) if self.board[r][c] == 1
         )
         p2_moves = sum(
-            len(self.valid_moves(r, c, 2)) for r in range(ROWS) for c in range(COLS) if self.board[r][c] == 2
+            len(self.valid_moves(self.board,r, c, 2)) for r in range(ROWS) for c in range(COLS) if self.board[r][c] == 2
         )
         valid_moves = [p1_moves,p2_moves]
         if valid_moves[~(self.player_turn-1)] == 0:
@@ -122,7 +109,7 @@ class HexapawnGame:
     def play_step(self, action):
         if action:
             sr, sc, er, ec = action
-            if (er, ec) in self.valid_moves(sr, sc, self.player_turn):
+            if (er, ec) in self.valid_moves(self.board,sr, sc, self.player_turn):
                 self.move_pawn((sr, sc), (er, ec))
                 winner = self.check_winner()
                 if winner:
@@ -142,7 +129,7 @@ class HexapawnGame:
                     if self.selected:
                         
                         sr, sc = self.selected
-                        if (row, col) in self.valid_moves(sr, sc, self.player_turn):
+                        if (row, col) in self.valid_moves(self.board,sr, sc, self.player_turn):
                             self.move_pawn(self.selected, (row, col))
                             winner = self.check_winner()
                             if winner:
