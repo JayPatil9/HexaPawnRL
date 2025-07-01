@@ -1,6 +1,7 @@
 import pygame
 import sys
 from utils import board_to_key, valid_moves, valid_pos
+from agent import BruteForceAgent
 
 pygame.init()
 
@@ -31,7 +32,7 @@ class HexapawnGame:
         else:
             self.reset()
 
-    def reset(self):
+    def reset(self, delay=500):
         self.board = [
             [2, 2, 2],
             [0, 0, 0],
@@ -39,7 +40,10 @@ class HexapawnGame:
         ]
         self.selected = None
         self.player_turn = 1
+        self.winner = None
         self.draw_board()
+        self.delay = delay
+        
 
     def draw_board(self):
         self.screen.fill(WHITE)
@@ -95,6 +99,7 @@ class HexapawnGame:
         return None
 
     def draw_winner(self, winner):
+        self.winner = winner
         text = self.font.render(f"Player {winner} Wins!", True, BLACK)
         self.screen.fill(WHITE)
         self.screen.blit(
@@ -102,7 +107,7 @@ class HexapawnGame:
             (WIDTH // 2 - text.get_width() // 2, HEIGHT // 2 - text.get_height() // 2),
         )
         pygame.display.flip()
-        pygame.time.delay(3000)
+        pygame.time.delay(self.delay)
     
     def invalid_move(self):
         text = self.font.render(f"Invalid Move!", True, RED)
@@ -112,7 +117,7 @@ class HexapawnGame:
             (WIDTH // 2 - text.get_width() // 2, HEIGHT // 2 - text.get_height() // 2),
         )
         pygame.display.flip()
-        pygame.time.delay(500)
+        pygame.time.delay(self.delay)
 
 
     def play_step(self, action):
@@ -122,10 +127,11 @@ class HexapawnGame:
                 self.move_pawn((sr, sc), (er, ec))
                 winner = self.check_winner()
                 if winner:
-                    return winner
+                    self.draw_winner(winner)
+                    return False
                 self.player_turn = 3 - self.player_turn
             
-            return None
+            return True
         else:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -154,25 +160,88 @@ class HexapawnGame:
                             self.selected = (row, col)
             return True
     
-    def exit(self):
-        pygame.quit()
 
 
-    def run(self):
+    def run(self,agent=None):
         running = True
-
+        action = None
         while running:
-            running = self.play_step(None)
+            if agent:
+                action = agent.get_action(self.board, self.player_turn)
+            running = self.play_step(action)
             if not running:
                 break
             self.draw_board()
+            pygame.time.delay(self.delay)
             pygame.display.flip()
 
-        pygame.quit()
-        sys.exit()
+        
         
 
 
-if __name__ == "__main__":
+def AIvsAI():
     game = HexapawnGame()
-    game.run()
+    agent = BruteForceAgent()
+    agent.define(valid_moves, valid_pos, board_to_key)
+    n = 10000
+    player_1, player_2 = 0, 0
+    while n > 0:
+        game.reset(2)
+        running = True
+        action = None
+        while running:
+            if agent:
+                action = agent.get_action(game.board, game.player_turn)
+            running = game.play_step(action)
+            if not running:
+                break
+            game.draw_board()
+            pygame.time.delay(game.delay)
+            pygame.display.flip()
+        winner = game.winner
+        if winner == 1:
+            player_1 += 1
+        elif winner == 2:
+            player_2 += 1
+        n -= 1
+    pygame.quit()
+
+    print(f"Player 1 wins: {player_1} times")
+    print(f"Player 2 wins: {player_2} times")
+
+def HumanVsAI():
+    game = HexapawnGame()
+    agent = BruteForceAgent()
+    agent.define(valid_moves, valid_pos, board_to_key)
+    game.reset(10)
+    running = True
+    while running:
+        action = None
+        if agent and game.player_turn == 2:
+            action = agent.get_action(game.board, game.player_turn)
+        running = game.play_step(action)
+        if not running:
+            break
+        game.draw_board()
+        pygame.time.delay(game.delay)
+        pygame.display.flip()
+    pygame.quit()
+
+def HumanVsHuman():
+    game = HexapawnGame()
+    game.reset(10)
+    running = True
+    action = None
+    while running:
+        running = game.play_step(action)
+        if not running:
+            break
+        game.draw_board()
+        pygame.time.delay(game.delay)
+        pygame.display.flip()
+    pygame.quit()
+
+if __name__ == "__main__":
+    AIvsAI()
+    # HumanVsAI()
+    # HumanVsHuman()

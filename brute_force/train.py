@@ -80,6 +80,9 @@ if __name__ == "__main__":
     agent = BruteForceSearch()
     agent.recursive_search(INITIAL_BOARD, 1)
     
+    with open("brute_force_table_1.json", "w") as f:
+        json.dump(agent.table[0], f, indent=4)
+
     with open("brute_force_table_2.json", "w") as f:
         json.dump(agent.table[1], f, indent=4)
     
