@@ -3,9 +3,12 @@ ROWS, COLS = 3, 3
 def board_to_key(board):
     return ''.join(str(cell) for row in board for cell in row)
 
-def valid_pos(self, game):
-    board = game.board
-    player = game.player_turn
+def valid_pos(game=None, gameinfo=None):
+    if game:
+        board = game.board
+        player = game.player_turn
+    elif gameinfo:
+        board, player = gameinfo
     pos = []
     for x in range(3):
         for y in range(3):

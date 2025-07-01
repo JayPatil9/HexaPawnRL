@@ -1,6 +1,6 @@
 import pygame
 import sys
-from utils import valid_moves
+from utils import board_to_key, valid_moves, valid_pos
 
 pygame.init()
 
@@ -17,12 +17,19 @@ PLAYER1_COLOR = BLUE
 PLAYER2_COLOR = RED
 
 class HexapawnGame:
-    def __init__(self):
+    def __init__(self,game=None):
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
         pygame.display.set_caption("Hexapawn")
         self.font = pygame.font.Font(None, 50)
         self.valid_moves = valid_moves
-        self.reset()
+        self.valid_pos = valid_pos
+        self.board_to_key = board_to_key
+        if game:
+            self.board = game.board
+            self.selected = game.selected
+            self.player_turn = game.player_turn
+        else:
+            self.reset()
 
     def reset(self):
         self.board = [
@@ -60,11 +67,13 @@ class HexapawnGame:
                     )
 
 
-    def move_pawn(self, start, end):
+    def move_pawn(self, start, end,board=None):
+        if board is None:
+            board = self.board
         sr, sc = start
         er, ec = end
-        self.board[er][ec] = self.board[sr][sc]
-        self.board[sr][sc] = 0
+        board[er][ec] = board[sr][sc]
+        board[sr][sc] = 0
 
     def check_winner(self):
         for col in range(COLS):
@@ -144,6 +153,9 @@ class HexapawnGame:
                         if self.board[row][col] == self.player_turn:
                             self.selected = (row, col)
             return True
+    
+    def exit(self):
+        pygame.quit()
 
 
     def run(self):
