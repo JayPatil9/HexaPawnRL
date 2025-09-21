@@ -242,6 +242,6 @@ def HumanVsHuman():
     pygame.quit()
 
 if __name__ == "__main__":
-    AIvsAI()
-    # HumanVsAI()
+    # AIvsAI()
+    HumanVsAI()
     # HumanVsHuman()
