@@ -314,13 +314,13 @@ if __name__ == "__main__":
     if save.lower() == 'y':
         trainer.save_model("hexapawn_model.pth")
     
-    trainer.plot_training_progress()
+    # trainer.plot_training_progress()
 
     #Testing
     try:
         trainer.load_model("hexapawn_model.pth")
         print("Model loaded successfully.")
-        trainer.plot_testing_progress(games=100)
+        # trainer.plot_testing_progress(games=100)
     except FileNotFoundError:
         print("No pre-trained model found. Starting training from scratch.")
     
