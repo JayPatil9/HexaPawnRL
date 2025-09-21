@@ -1,6 +1,6 @@
 # HexapawnRL
 
-A comprehensive reinforcement learning implementation for the classic Hexapawn game, featuring multiple AI algorithms and training methodologies.
+A comprehensive reinforcement learning implementation for the classic Hexapawn game, featuring multiple training methodologies.
 
 ## 🎯 About Hexapawn
 
@@ -21,12 +21,11 @@ Hexapawn is a deterministic two-player board game invented by Martin Gardner. It
 
 ## 🚀 Features
 
-- **Multiple RL Algorithms**: Implementation of various reinforcement learning approaches
 - **Brute Force Solver**: Complete game tree analysis
 - **Neural Network Integration**: Deep learning approaches to game strategy
 - **Modular Architecture**: Clean separation of game logic, training, and utilities
-<!-- - **Comprehensive Training**: Different methodologies for algorithm comparison
-- **Performance Analytics**: Built-in tools for analyzing agent performance -->
+- **Comprehensive Training**: Different methodologies for algorithm comparison
+<!-- - **Performance Analytics**: Built-in tools for analyzing agent performance -->
 
 ## 📁 Project Structure
 
