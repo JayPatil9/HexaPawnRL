@@ -69,7 +69,7 @@ class BruteForceSearch:
                 if state not in new_game_data:
                     new_game_data[state] = []
                 new_game_data[state].append((sr, sc, er, ec))
-                winner = self.check_winner(board,player_turn)
+                winner = self.check_winner(new_board,player_turn)
                 if winner:
                     self.save_game(new_game_data, winner)
                 else:
