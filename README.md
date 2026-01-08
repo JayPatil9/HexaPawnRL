@@ -54,8 +54,8 @@ HEXAPAWNRL/
 ### Setup
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/hexapawnrl.git
-cd hexapawnrl
+git clone https://github.com/JayPatil9/HexaPawnRL.git
+cd HexaPawnRL
 ```
 
 2. Create a virtual environment (recommended):
