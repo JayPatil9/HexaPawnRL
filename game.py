@@ -11,15 +11,23 @@ BLACK = (0, 0, 0)
 GRAY = (185, 185, 185, 0.1)
 BLUE = (0, 0, 255)
 RED = (255, 0, 0)
-
-PLAYER1_COLOR = BLUE
-PLAYER2_COLOR = RED
+BROWN = (195, 176, 145)
+GREEN = (120, 150, 120)
 
 class HexapawnGame:
     def __init__(self):
         self.screen = pygame.display.set_mode((WIDTH, HEIGHT))
-        pygame.display.set_caption("Hexapawn")
+        pygame.display.set_caption("HexaPawn")
         self.font = pygame.font.Font(None, 50)
+        icon = pygame.image.load('./assets/icon.png')
+        pygame.display.set_icon(icon)
+
+        self.pawn1_img = pygame.image.load('./assets/white_pawn.png').convert_alpha()
+        self.pawn2_img = pygame.image.load('./assets/black_pawn.png').convert_alpha()
+        img_size = (int(SQUARE_SIZE * 0.8), int(SQUARE_SIZE * 0.8))
+        self.pawn1_img = pygame.transform.scale(self.pawn1_img, img_size)
+        self.pawn2_img = pygame.transform.scale(self.pawn2_img, img_size)
+
         self.board = [
             [2, 2, 2],
             [0, 0, 0],
@@ -29,29 +37,34 @@ class HexapawnGame:
         self.player_turn = 1
 
     def draw_board(self):
-        self.screen.fill(WHITE)
+        offset = (SQUARE_SIZE - self.pawn1_img.get_width()) // 2
+
         for row in range(ROWS):
             for col in range(COLS):
                 
                 pygame.draw.rect(
-                    self.screen, BLACK, (col * SQUARE_SIZE, row * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE), 2
+                    self.screen,
+                    BROWN if (row + col) % 2 == 0 else GREEN,
+                    (col * SQUARE_SIZE, row * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE),
                 )
                 
                 if self.board[row][col] == 1:
-                    pygame.draw.circle(
-                        self.screen,
-                        PLAYER1_COLOR,
-                        (col * SQUARE_SIZE + SQUARE_SIZE // 2, row * SQUARE_SIZE + SQUARE_SIZE // 2),
-                        SQUARE_SIZE // 3,
-                    )
+                    # pygame.draw.circle(
+                    #     self.screen,
+                    #     PLAYER1_COLOR,
+                    #     (col * SQUARE_SIZE + SQUARE_SIZE // 2, row * SQUARE_SIZE + SQUARE_SIZE // 2),
+                    #     SQUARE_SIZE // 3,
+                    # )
+                    self.screen.blit(self.pawn1_img, (col * SQUARE_SIZE + offset, row * SQUARE_SIZE + offset))
                 
                 elif self.board[row][col] == 2:
-                    pygame.draw.circle(
-                        self.screen,
-                        PLAYER2_COLOR,
-                        (col * SQUARE_SIZE + SQUARE_SIZE // 2, row * SQUARE_SIZE + SQUARE_SIZE // 2),
-                        SQUARE_SIZE // 3,
-                    )
+                    # pygame.draw.circle(
+                    #     self.screen,
+                    #     PLAYER2_COLOR,
+                    #     (col * SQUARE_SIZE + SQUARE_SIZE // 2, row * SQUARE_SIZE + SQUARE_SIZE // 2),
+                    #     SQUARE_SIZE // 3,
+                    # )
+                    self.screen.blit(self.pawn2_img, (col * SQUARE_SIZE + offset, row * SQUARE_SIZE + offset))
 
     def valid_moves(self, row, col, player):
         moves = []
