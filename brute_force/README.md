@@ -2,7 +2,7 @@
 
 This folder contains the brute force implementation for solving Hexapawn using exhaustive game tree search. The algorithm generates a complete lookup table of optimal moves for every possible game state.
 
-## 🧠 Algorithm Overview
+## Algorithm Overview
 
 The brute force approach uses **exhaustive recursive search** to:
 1. Explore all possible game states from the initial position
@@ -16,16 +16,14 @@ The brute force approach uses **exhaustive recursive search** to:
 - **Dual player tables**: Separate strategy tables for Player 1 and Player 2
 - **Perfect information**: Leverages complete game state visibility
 
-## 📁 Files
+## Files
 
 - **`train.py`**: Main training script that generates the lookup tables
 - **`agent.py`**: Agent implementation using the generated tables
 - **`game.py`**: Game environment specific to brute force approach
 - **`utils.py`**: Utility functions for board manipulation and validation
 
-## 🚀 Training Instructions
-
-### Running the Training
+## Training Instructions
 
 1. **Execute the training script**:
 ```bash
@@ -50,7 +48,7 @@ The training uses these default settings:
 - **Search depth**: Complete (until game termination)
 - **Players**: 2 (alternating turns)
 
-## 🔧 Algorithm Details
+## Algorithm Details
 
 ### State Representation
 - Board states are converted to unique string keys using `board_to_key()`
@@ -68,12 +66,7 @@ def recursive_search(board, player_turn, game_data):
     7. If not: recursively search opponent's response
 ```
 
-### Win Conditions
-- **Pawn promotion**: Getting a pawn to the opposite end
-- **Capture all**: Eliminating all opponent pawns
-- **Blockade**: Opponent has no legal moves
-
-## 📊 Performance Characteristics
+## Performance Characteristics
 
 ### Advantages
 - **Perfect play**: Always makes optimal moves
