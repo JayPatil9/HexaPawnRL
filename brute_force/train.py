@@ -13,6 +13,7 @@ INITIAL_BOARD = [
 class BruteForceSearch:
     def __init__(self):
         self.table = [{},{}]
+        self.valid_games = [{},{}]
         self.define()
 
 
@@ -23,6 +24,7 @@ class BruteForceSearch:
 
     def save_game(self, game_data, winner):
         k = winner - 1
+        self.valid_games[k][str(game_data)] = True
         for key in game_data.keys():
             if key not in self.table[k]:
                 self.table[k][key] = []
@@ -65,7 +67,7 @@ class BruteForceSearch:
                 new_board=copy.deepcopy(board)
                 new_board[sr][sc] = 0
                 new_board[er][ec] = player_turn
-                new_game_data = game_data if game_data is not None else {}
+                new_game_data = copy.deepcopy(game_data) if game_data is not None else {}
                 if state not in new_game_data:
                     new_game_data[state] = []
                 new_game_data[state].append((sr, sc, er, ec))
@@ -85,6 +87,10 @@ if __name__ == "__main__":
 
     with open("brute_force_table_2.json", "w") as f:
         json.dump(agent.table[1], f, indent=4)
+
+    print("Unique games played: ",len(agent.valid_games[0]) + len(agent.valid_games[1]))
+    print("Unique games won by Player 1: ",len(agent.valid_games[0]))
+    print("Unique games won by Player 2: ",len(agent.valid_games[1]))
     
     print("Brute force search completed and data saved to brute_force_table_2.json")
 
