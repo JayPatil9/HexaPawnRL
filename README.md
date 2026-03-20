@@ -4,6 +4,10 @@ A comprehensive reinforcement learning implementation for the classic Hexapawn g
 
 ## About Hexapawn
 
+<div align="center">
+  <img src="./assets/icon.png" alt="Logo" width="300">
+</div>
+
 Hexapawn is a deterministic two-player board game invented by Martin Gardner. It's played on a 3×3 board with pawns that move and capture like chess pawns. The game serves as an excellent testbed for machine learning algorithms due to its:
 
 - **Simple rules**: Easy to understand and implement
