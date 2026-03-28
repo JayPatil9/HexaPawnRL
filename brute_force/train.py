@@ -57,7 +57,7 @@ class BruteForceSearch:
     def recursive_search(self, board, player_turn, game_data=None):
         
         state = self.get_state(board)
-        print(f"Exploring state: {state} for player {player_turn}")
+        # print(f"Exploring state: {state} for player {player_turn}")
         valid_positions = self.valid_pos(gameinfo=(board,player_turn))
         for pos in valid_positions:
             sr, sc = pos
@@ -92,7 +92,7 @@ if __name__ == "__main__":
     print("Unique games won by Player 1: ",len(agent.valid_games[0]))
     print("Unique games won by Player 2: ",len(agent.valid_games[1]))
     
-    print("Brute force search completed and data saved to brute_force_table_2.json")
+    print("Brute force search completed and data is saved")
 
     
 
