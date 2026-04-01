@@ -2,6 +2,8 @@
 
 This folder contains a punishment-based learning implementation for Hexapawn.
 
+---
+
 ## Algorithm Overview
 
 1. Start with an initial set of known moves for each game state
@@ -17,6 +19,8 @@ This folder contains a punishment-based learning implementation for Hexapawn.
 - **Single agent focus**: Primarily optimizes Player 2's strategy
 - **No preprocessing**: Learns through actual gameplay experience
 
+---
+
 ## Files
 
 - **`train.py`**: Main training script implementing punishment-based learning
@@ -24,6 +28,8 @@ This folder contains a punishment-based learning implementation for Hexapawn.
 - **`game.py`**: Game environment for Hexapawn
 - **`utils.py`**: Utility functions for board manipulation and validation
 - **`states.txt`**: Initial move set for all reachable Hexapawn states
+
+---
 
 ## Training Instructions
 
@@ -56,6 +62,15 @@ The training uses these default settings:
 - **Initial states**: Loaded from `states.txt`
 - **Learning rate**: 1 bad move deleted per loss
 
+## Usage 
+
+After training, you can run the game using the learned strategy:
+```bash
+python game.py
+```
+
+---
+
 ## Comparison with Brute Force
 
 | Aspect | Trial-and-Error | Brute Force |
@@ -67,5 +82,3 @@ The training uses these default settings:
 | **Adaptability** | Improves over time | Static strategy |
 
 ---
-
-

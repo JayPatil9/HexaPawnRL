@@ -79,13 +79,13 @@ def recursive_search(board, player_turn, game_data):
 - **Static strategy**: Cannot adapt or learn from experience
 - **Limited scalability**: Exponential growth with board size
 
-<!-- ## 🎯 Usage Example
+## Usage
 
-After training, the generated tables can be used as follows:
+After training, you can run the game using the generated tables:
 
 ```bash
-
-``` -->
+python game.py
+```
 
 ---
 
