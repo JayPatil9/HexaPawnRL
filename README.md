@@ -34,16 +34,14 @@ Hexapawn is a deterministic two-player board game invented by Martin Gardner. It
 ## Project Structure
 
 ```
-HEXAPAWNRL/
-├── brute_force/          # Complete game tree analysis
-│   ├── agent.py         # Brute force agent implementation
-│   ├── game.py          # Game logic for brute force approach
-│   ├── train.py         # Training/analysis scripts
-│   └── utils.py         # Utility functions
-├── .gitignore           # Git ignore configuration
-├── game.py              # Core game implementation
-└── README.md            # Project documentation
-└── requirements.txt     # List of required python dependencies
+HexaPawnRL/
+├── assets/ # Contains game icons and images.
+├── brute_force/ # Implementation of the brute force solver for Hexapawn.
+├── HER/ # Implementation of Hexapawn Educable Robot (HER) algorithm.
+├── HIM/ # Implementation of Hexapawn Instructable Matchboxes (HIM) algorithm.
+├── game.py # Main game logic and interface.
+├── README.md # Project documentation and instructions.
+├── requirements.txt # List of dependencies for the project.
 ```
 
 ## Installation
